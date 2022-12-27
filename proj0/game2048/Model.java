@@ -156,17 +156,25 @@ public class Model extends Observable {
         return changed;
     }
 
+    /**
+     * @param col
+     * @return change or not
+     * this function moves the tile up to their destination tile at column <col>
+     */
     private boolean moveUpAtCol(int col) {
         boolean changed = false;
         int merged = 0;
         for (int row = board.size() - 1; row > 0; row--) {
             Tile tile2move = board.tile(col, row - 1);
+            // skip the empty tile
             if (tile2move != null) {
                 int targetRow = getUpDest(col, row - 1, merged);
+                // if merged, update score and merged
                 if (board.move(col, targetRow, tile2move)) {
                     merged = merged + (int) Math.pow(2, targetRow);
                     score += board.tile(col, targetRow).value();
                 }
+                // if move to another tile, update changed
                 if (targetRow != row - 1)
                     changed = true;
             }
@@ -174,19 +182,27 @@ public class Model extends Observable {
         return changed;
     }
 
+    /**
+     * @param col
+     * @param row
+     * @param merged information to show whether a tile has been merged
+     * @return the target row to move(merge)
+     */
     private int getUpDest(int col, int row, int merged) {
         Tile tile2move = board.tile(col, row);
         for (int r = row + 1; r < board.size(); r++) {
             if (board.tile(col, r) == null) {
+                // skip the empty tile
                 continue;
             } else if (board.tile(col, r).value() == tile2move.value()) {
+                // if tile at row <r> not merged, return r;
                 if ((merged & (int) Math.pow(2, r)) == 0)
                     return r;
                 return r - 1;
-            } else {
-                return r - 1;
             }
+            return r - 1;
         }
+        // default return value
         return board.size() - 1;
     }
 
