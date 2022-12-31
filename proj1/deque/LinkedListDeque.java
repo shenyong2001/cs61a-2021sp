@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T> {
 
     private class Node {
         T item;
@@ -108,14 +108,14 @@ public class LinkedListDeque<T> {
         return getRecursiveHelper(index, cur);
     }
 
-    private T getRecursiveHelper(int index, Node sentinel) {
+    private T getRecursiveHelper(int index, Node cur) {
         if (index >= size || index < 0) {
             return null;
         }
         if (index == 0) {
-            return sentinel.item;
+            return cur.item;
         }
-        return getRecursiveHelper(index - 1, sentinel.next);
+        return getRecursiveHelper(index - 1, cur.next);
     }
 
     public boolean equals(Object o) {
@@ -131,8 +131,9 @@ public class LinkedListDeque<T> {
         do {
             curObj = curObj.next;
             curThis = curThis.next;
-            if (curObj.item != curThis.item)
+            if (curObj.item != curThis.item) {
                 return false;
+            }
         } while (curThis.next != sentinel);
 
         return true;
@@ -145,7 +146,7 @@ public class LinkedListDeque<T> {
     private class LLDequeIterator implements Iterator<T> {
         private int wizPos;
 
-        public LLDequeIterator() {
+        LLDequeIterator() {
             wizPos = 0;
         }
 
@@ -162,31 +163,4 @@ public class LinkedListDeque<T> {
         }
     }
 
-//    public static void main(String[] args) {
-//        LinkedListDeque<Integer> linkedListDeque = new LinkedListDeque<>();
-//        LinkedListDeque<Integer> linkedListDeque2 = new LinkedListDeque<>();
-//        linkedListDeque.addFirst(1);
-//        linkedListDeque.addFirst(2);
-//        linkedListDeque.addLast(3);
-//        linkedListDeque.addLast(4);
-//        linkedListDeque2.addFirst(1);
-//        linkedListDeque2.addFirst(2);
-//        linkedListDeque2.addLast(3);
-//        linkedListDeque2.addLast(4);
-//        System.out.println(linkedListDeque.equals(linkedListDeque2));
-//        System.out.println(linkedListDeque.getRecursive(0));
-//        System.out.println(linkedListDeque.getRecursive(1));
-//        System.out.println(linkedListDeque.getRecursive(2));
-//        System.out.println(linkedListDeque.getRecursive(3));
-//        System.out.println(linkedListDeque.getRecursive(4));
-//        System.out.println(linkedListDeque.getRecursive(-1));
-//        linkedListDeque.removeFirst();
-//        linkedListDeque.printDeque();
-//        linkedListDeque.removeLast();
-//        linkedListDeque.printDeque();
-//        linkedListDeque.removeFirst();
-//        linkedListDeque.printDeque();
-//        linkedListDeque.removeLast();
-//        linkedListDeque.printDeque();
-//    }
 }
