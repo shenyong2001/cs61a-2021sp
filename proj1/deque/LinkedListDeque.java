@@ -1,5 +1,7 @@
 package deque;
 
+import java.util.Iterator;
+
 public class LinkedListDeque<T> {
 
     private class Node {
@@ -101,6 +103,21 @@ public class LinkedListDeque<T> {
         return cur.item;
     }
 
+    public T getRecursive(int index) {
+        Node cur = sentinel.next;
+        return getRecursiveHelper(index, cur);
+    }
+
+    private T getRecursiveHelper(int index, Node sentinel) {
+        if (index >= size || index < 0) {
+            return null;
+        }
+        if (index == 0) {
+            return sentinel.item;
+        }
+        return getRecursiveHelper(index - 1, sentinel.next);
+    }
+
     public boolean equals(Object o) {
         if (!(o instanceof LinkedListDeque)) {
             return false;
@@ -121,6 +138,30 @@ public class LinkedListDeque<T> {
         return true;
     }
 
+    public Iterator<T> iterator() {
+        return new LLDequeIterator();
+    }
+
+    private class LLDequeIterator implements Iterator<T> {
+        private int wizPos;
+
+        public LLDequeIterator() {
+            wizPos = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return wizPos < size;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = get(wizPos);
+            wizPos += 1;
+            return returnItem;
+        }
+    }
+
 //    public static void main(String[] args) {
 //        LinkedListDeque<Integer> linkedListDeque = new LinkedListDeque<>();
 //        LinkedListDeque<Integer> linkedListDeque2 = new LinkedListDeque<>();
@@ -133,12 +174,12 @@ public class LinkedListDeque<T> {
 //        linkedListDeque2.addLast(3);
 //        linkedListDeque2.addLast(4);
 //        System.out.println(linkedListDeque.equals(linkedListDeque2));
-//        System.out.println(linkedListDeque.get(0));
-//        System.out.println(linkedListDeque.get(1));
-//        System.out.println(linkedListDeque.get(2));
-//        System.out.println(linkedListDeque.get(3));
-//        System.out.println(linkedListDeque.get(4));
-//        System.out.println(linkedListDeque.get(-1));
+//        System.out.println(linkedListDeque.getRecursive(0));
+//        System.out.println(linkedListDeque.getRecursive(1));
+//        System.out.println(linkedListDeque.getRecursive(2));
+//        System.out.println(linkedListDeque.getRecursive(3));
+//        System.out.println(linkedListDeque.getRecursive(4));
+//        System.out.println(linkedListDeque.getRecursive(-1));
 //        linkedListDeque.removeFirst();
 //        linkedListDeque.printDeque();
 //        linkedListDeque.removeLast();
