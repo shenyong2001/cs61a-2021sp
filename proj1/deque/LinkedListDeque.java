@@ -47,11 +47,6 @@ public class LinkedListDeque<T> implements Deque<T> {
         size = size + 1;
     }
 
-    /** return whether Deque is empty. */
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
     public int size() {
         return size;
     }
@@ -128,7 +123,7 @@ public class LinkedListDeque<T> implements Deque<T> {
 
     /** Returns whether the parameter o is equal to the Deque. */
     public boolean equals(Object o) {
-        if (!(o instanceof LinkedListDeque)) {
+        if (!(o instanceof Deque)) {
             return false;
         }
         if (((LinkedListDeque<?>) o).size() != size) {

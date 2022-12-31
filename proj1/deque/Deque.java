@@ -7,7 +7,10 @@ public interface Deque<T> {
 
     void addLast(T item);
 
-    boolean isEmpty();
+    /** return whether Deque is empty. */
+    default boolean isEmpty() {
+        return size() == 0;
+    }
 
     int size();
 
@@ -22,7 +25,4 @@ public interface Deque<T> {
     T getRecursive(int index);
 
     boolean equals(Object o);
-
-    Iterator<T> iterator();
-
 }
