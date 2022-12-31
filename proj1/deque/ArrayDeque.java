@@ -87,6 +87,7 @@ public class ArrayDeque<T> implements Deque<T> {
         if (index < 0 || index >= items.length) {
             return null;
         }
+        index = (nextFirst + 1 + index) % items.length;
         return items[index];
     }
 
