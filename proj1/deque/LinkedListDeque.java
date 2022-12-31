@@ -30,8 +30,9 @@ public class LinkedListDeque<T> {
     public void addFirst(T item) {
         sentinel.next = new Node(item, sentinel, sentinel.next);
         sentinel.next.next.prev = sentinel.next;
-        if (isEmpty())
+        if (isEmpty()) {
             sentinel.prev = sentinel.next;
+        }
         size = size + 1;
     }
 
@@ -89,8 +90,9 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index) {
-        if (index < 0 || index >= size)
+        if (index < 0 || index >= size) {
             return null;
+        }
 
         Node cur = sentinel.next;
         for (int i = 0; i < index; i++) {
@@ -100,10 +102,12 @@ public class LinkedListDeque<T> {
     }
 
     public boolean equals(Object o) {
-        if (!(o instanceof LinkedListDeque))
+        if (!(o instanceof LinkedListDeque)) {
             return false;
-        if (((LinkedListDeque<?>) o).size() != size)
+        }
+        if (((LinkedListDeque<?>) o).size() != size) {
             return false;
+        }
 
         LinkedListDeque<?>.Node curObj = ((LinkedListDeque<?>) o).sentinel;
         Node curThis = sentinel;
