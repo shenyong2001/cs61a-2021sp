@@ -17,7 +17,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     private int size;
-    private Node sentinel;
+    private final Node sentinel;
 
     /**
      * Creates an empty linked list deque.
@@ -29,6 +29,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         this.size = 0;
     }
 
+    /** Adds item to the front of the list. */
     public void addFirst(T item) {
         sentinel.next = new Node(item, sentinel, sentinel.next);
         sentinel.next.next.prev = sentinel.next;
@@ -38,6 +39,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         size = size + 1;
     }
 
+    /** Adds item to the end of the list. */
     public void addLast(T item) {
         Node dummy = new Node(item, sentinel.prev, sentinel);
         sentinel.prev.next = dummy;
@@ -45,6 +47,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         size = size + 1;
     }
 
+    /** return whether Deque is empty. */
     public boolean isEmpty() {
         return size == 0;
     }
@@ -66,6 +69,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         System.out.println(toPrint);
     }
 
+    /** Remove item at the front of the list. */
     public T removeFirst() {
         if (!isEmpty()) {
             T ret = sentinel.next.item;
@@ -79,18 +83,21 @@ public class LinkedListDeque<T> implements Deque<T> {
         return null;
     }
 
+    /** Remove item at the end of the list. */
     public T removeLast() {
         if (!isEmpty()) {
             T ret = sentinel.prev.item;
             Node last = sentinel.prev;
             sentinel.prev.prev.next = sentinel;
             sentinel.prev = sentinel.prev.prev;
+            last = null;
             size = size - 1;
             return ret;
         }
         return null;
     }
 
+    /** Get the ith item of the list. */
     public T get(int index) {
         if (index < 0 || index >= size) {
             return null;
@@ -103,6 +110,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         return cur.item;
     }
 
+    /** Get the ith item of the list recursively. */
     public T getRecursive(int index) {
         Node cur = sentinel.next;
         return getRecursiveHelper(index, cur);
@@ -118,6 +126,7 @@ public class LinkedListDeque<T> implements Deque<T> {
         return getRecursiveHelper(index - 1, cur.next);
     }
 
+    /** Returns whether the parameter o is equal to the Deque. */
     public boolean equals(Object o) {
         if (!(o instanceof LinkedListDeque)) {
             return false;
