@@ -137,7 +137,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         }
 
         for (int i = 0; i < size; i++) {
-            if (deque.get(i).equals(get(i))) {
+            if (deque.get(i) != get(i)) {
                 return false;
             }
         }
@@ -167,6 +167,24 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
             wizPos += 1;
             return returnItem;
         }
+    }
+
+    public static void main(String[] args) {
+        LinkedListDeque<Integer> linkedListDeque = new LinkedListDeque<>();
+        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
+
+        linkedListDeque.addLast(1);
+        linkedListDeque.addLast(3);
+        linkedListDeque.addLast(23);
+        linkedListDeque.addLast(2);
+
+        arrayDeque.addLast(1);
+        arrayDeque.addLast(3);
+        arrayDeque.addLast(23);
+        arrayDeque.addLast(2);
+
+        System.out.println(linkedListDeque.equals(arrayDeque));
+        System.out.println(arrayDeque.equals(linkedListDeque));
     }
 
 }
