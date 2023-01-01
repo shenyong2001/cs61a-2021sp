@@ -6,15 +6,14 @@ import edu.princeton.cs.algs4.StdDraw;
 
 public class GuitarHero {
     public static final double CONCERT_A = 440.0;
-    public static final String keyboard = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
-    public static ArrayDeque<GuitarString> guitarStrings;
+    public static final String KEYBOARD = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ";
 
     public static void main(String[] args) {
         /* create two guitar strings, for concert A and C */
-        guitarStrings = new ArrayDeque<>();
-        for (int i = 0; i < keyboard.length(); i++) {
-            double CONCERT = CONCERT_A * Math.pow(2, (i - 24) / 12.0);
-            GuitarString string = new GuitarString(CONCERT);
+        ArrayDeque<GuitarString> guitarStrings = new ArrayDeque<>();
+        for (int i = 0; i < KEYBOARD.length(); i++) {
+            double concert = CONCERT_A * Math.pow(2, (i - 24) / 12.0);
+            GuitarString string = new GuitarString(concert);
             guitarStrings.addLast(string);
         }
         System.out.println("");
@@ -23,8 +22,8 @@ public class GuitarHero {
             /* check if the user has typed a key; if so, process it */
             if (StdDraw.hasNextKeyTyped()) {
                 char key = StdDraw.nextKeyTyped();
-                int index = keyboard.indexOf(key);
-                if (0 <= index && index < keyboard.length()) {
+                int index = KEYBOARD.indexOf(key);
+                if (0 <= index && index < KEYBOARD.length()) {
                     string = guitarStrings.get(index);
                     string.pluck();
                 }
