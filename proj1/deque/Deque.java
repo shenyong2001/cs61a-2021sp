@@ -20,7 +20,5 @@ public interface Deque<T> {
 
     T get(int index);
 
-    T getRecursive(int index);
-
     boolean equals(Object o);
 }
