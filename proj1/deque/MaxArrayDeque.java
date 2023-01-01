@@ -19,15 +19,14 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
             return null;
         }
 
-        Iterator<T> itr = iterator();
-        T maxItem = itr.next();
-        while (itr.hasNext()) {
-            T cur = itr.next();
-            if (c.compare(cur, maxItem) > 0) {
-                maxItem = cur;
+        int maxIndex = 0;
+        for (int i = 1; i < size(); i++) {
+            if (c.compare(get(i), get(maxIndex)) > 0) {
+                maxIndex = i;
             }
         }
-        return maxItem;
+
+        return get(maxIndex);
     }
 
 }
