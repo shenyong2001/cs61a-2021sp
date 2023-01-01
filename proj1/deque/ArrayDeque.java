@@ -127,18 +127,18 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         private int wizPos;
 
         ArrayDequeIterator() {
-            wizPos = indexAfter(nextFirst);
+            wizPos = 0;
         }
 
         @Override
         public boolean hasNext() {
-            return wizPos <= indexBefore(nextLast);
+            return wizPos < size;
         }
 
         @Override
         public T next() {
-            T returnItem = items[wizPos];
-            wizPos = indexAfter(wizPos);
+            T returnItem = get(wizPos);
+            wizPos += 1;
             return returnItem;
         }
     }
