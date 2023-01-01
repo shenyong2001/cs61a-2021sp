@@ -26,11 +26,11 @@ public class MaxArrayDequeTest {
         mad.addLast("Java is good!");
         mad.addLast("java is good");
         mad.addLast("a is good");
-        mad.addLast("h is good");
+        mad.addLast("h is good hello");
         mad.addLast("z is good");
 
         assertEquals("z is good", mad.max());
-        assertEquals("Java is good!", mad.max(new StringLengthComparator()));
+        assertEquals("h is good hello", mad.max(new StringLengthComparator()));
     }
 
     private static class IntComparator implements Comparator<Integer> {
