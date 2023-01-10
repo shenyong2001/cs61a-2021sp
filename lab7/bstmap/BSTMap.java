@@ -1,5 +1,8 @@
 package bstmap;
 
+import edu.princeton.cs.algs4.SET;
+
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -83,7 +86,21 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     @Override
     public Set<K> keySet() {
-        return null;
+        Set<K> keys = new HashSet<>();
+        keySet(root, keys);
+        return keys;
+    }
+
+    private void keySet(BSTNode node, Set<K> keys) {
+        if (node == null) {
+            return;
+        }
+        if (node.size == 1) {
+            keys.add(node.key);
+        }
+        keySet(node.left, keys);
+        keys.add(node.key);
+        keySet(node.right, keys);
     }
 
     @Override
