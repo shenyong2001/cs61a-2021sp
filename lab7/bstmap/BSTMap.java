@@ -116,20 +116,4 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
         return printHelper(node.left) + thisNode + printHelper(node.right);
     }
-
-    public static void main(String[] args) {
-        BSTMap<String,String> q = new BSTMap<String,String>();
-        q.put("f", "a");
-        q.put("k", "a");
-        q.put("c","a");
-        q.put("b","a");
-        q.put("a","a");
-        q.put("i", "a");
-        q.put("d","a");
-        q.put("e","a");
-        q.put("h", "a");
-        q.put("j", "a");
-        q.put("g", "a");
-        q.printInOrder();
-    }
 }
