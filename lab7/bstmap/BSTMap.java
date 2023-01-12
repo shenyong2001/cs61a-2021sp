@@ -1,9 +1,11 @@
 package bstmap;
 
 import edu.princeton.cs.algs4.SET;
+import org.w3c.dom.Node;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
@@ -103,14 +105,70 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         keySet(node.right, keys);
     }
 
+    private BSTNode deleteMin(BSTNode x) {
+        if (x.left == null) {
+            return x.right;
+        }
+        ;
+        x.left = deleteMin(x.left);
+        x.size = size(x.left) + size(x.right) + 1;
+        return x;
+    }
+
+    private BSTNode min(BSTNode node) {
+        if (node.left == null) {
+            return node;
+        }
+        return min(node.left);
+    }
+
     @Override
     public V remove(K key) {
-        return null;
+        BSTNode toRemove = get(root, key);
+        if (toRemove == null) {
+            throw new NoSuchElementException("The key to be deleted isn't exist.");
+        }
+        root = remove(root, key);
+        return toRemove.value;
     }
 
     @Override
     public V remove(K key, V value) {
+        BSTNode toRemove = get(root, key);
+        if (toRemove == null) {
+            throw new NoSuchElementException("The key to be deleted isn't exist.");
+        }
+        if (toRemove.value == value) {
+            root = remove(root, key);
+            return toRemove.value;
+        }
         return null;
+    }
+
+    private BSTNode remove(BSTNode node, K key) {
+        if (node == null) {
+            return null;
+        }
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0) {
+            node.left = remove(node.left, key);
+        } else if (cmp > 0) {
+            node.right = remove(node.right, key);
+        } else {
+            if (node.left == null) {
+                return node.right;
+            }
+            if (node.right == null) {
+                return node.left;
+            }
+
+            BSTNode tmp = node;
+            node = min(tmp.right);
+            node.right = deleteMin(tmp.right);
+            node.left = tmp.left;
+        }
+        node.size = 1 + size(node.left) + size(node.right);
+        return node;
     }
 
     @Override
